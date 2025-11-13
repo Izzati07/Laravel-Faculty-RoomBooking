@@ -1,0 +1,21 @@
+name: SCA Scan with Dependency-Check
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Scan dependencies with Dependency-Check
+      run: |
+        wget https://github.com/DependencyCheck/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
+        unzip dependency-check-12.1.0-release.zip -d dc
+        dc/bin/dependency-check.sh --project Hotel-Booking --scan . --format HTML --out dc-report
