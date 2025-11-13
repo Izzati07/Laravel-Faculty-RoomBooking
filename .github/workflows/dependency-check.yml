@@ -21,7 +21,8 @@ jobs:
         java-version: 17
 
     - name: Scan dependencies with Dependency-Check
+      continue-on-error: true
       run: |
         wget https://github.com/DependencyCheck/DependencyCheck/releases/download/v12.1.0/dependency-check-12.1.0-release.zip
         unzip dependency-check-12.1.0-release.zip -d dc
-        dc/bin/dependency-check.sh --project Hotel-Booking --scan . --format HTML --out dc-report || true
+        dc/bin/dependency-check.sh --project Hotel-Booking --scan . --format HTML --out dc-report
